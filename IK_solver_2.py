@@ -1,4 +1,3 @@
-
 import sys
 import copy
 import rospy
@@ -52,6 +51,15 @@ def copy_joint_value(group_name, joint_values):
 				target_joint_value.append(copy.deepcopy(joint_values[count-1]))
 
 	return target_joint_value
+
+def Save_traj(goal_jnt_value,plan):
+	file_name = "Traj/bin "+ str(goal_jnt_value.bin_num) + goal_jnt_value.traj_property;		
+	print "saving bin.",goal_jnt_value.bin_num,"trajectory to file",file_name;
+	buf = StringIO();
+	plan.serialize(buf);				
+	f = open(file_name,"w");
+	f.write(buf.getvalue());
+	f.close();		
 
 def plan_trajectory(group_handle,pose_target):
 		
